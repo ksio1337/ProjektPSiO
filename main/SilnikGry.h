@@ -12,9 +12,27 @@
 class SilnikGry
 {
 private:
+	
+	sf::VideoMode videoMode;
+	sf::RenderWindow* window;
+	bool endGame;
 
+
+	Bohater* bohater;
+	
+	void initVariables();
+	void initWindow();
+	void initPlayer();
 public:
+	//Konstruktor i destruktor
+	SilnikGry();
+	~SilnikGry();
 
-	SilnikGry
+	//Funkcje
+	void run();
+	//const bool running() const;
+
+	void update();
+	void render();
 };
 

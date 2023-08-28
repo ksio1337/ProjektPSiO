@@ -7,6 +7,11 @@
 
 class Platformy
 {
+private:
 
+public:
+	//Konstruktor i destruktor
+	Platformy();
+	virtual ~Platformy();
 };
 

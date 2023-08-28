@@ -9,12 +9,13 @@ int main()
 	SilnikGry silnikGry; 
 
 	//Game loop
-	while (silnikGry.running())
+	silnikGry.run();
+	/*while (silnikGry.running())
 	{
 		silnikGry.update();
 		silnikGry.render();
 
-	}
+	}*/
 
 	//End of application
 	return 0;

@@ -7,6 +7,11 @@
 
 class Bonusy
 {
+private:
 
+	public:
+		//Konstruktor i destruktor
+		Bonusy();
+		virtual ~Bonusy();
 };
 
