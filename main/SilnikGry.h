@@ -8,6 +8,7 @@
 #include"Bohater.h"
 #include"Bonusy.h"
 #include"Platformy.h"
+#include"T³o.h"
 
 class SilnikGry
 {
@@ -17,8 +18,10 @@ private:
 	sf::RenderWindow* window;
 	bool endGame;
 
+	
 
 	Bohater* bohater;
+	T³o t³o;
 	
 	void initVariables();
 	void initWindow();

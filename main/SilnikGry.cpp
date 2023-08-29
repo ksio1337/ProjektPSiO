@@ -7,6 +7,7 @@ void SilnikGry::initVariables()
 
 void SilnikGry::initWindow()
 {
+	
 	this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "ProjektSFML", sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(60);
 }
@@ -38,8 +39,10 @@ void SilnikGry::run()
 {
 	while (this->window->isOpen())
 	{
+		
 		this->update();
 		this->render();
+		
 	}
 }
 
@@ -60,8 +63,9 @@ void SilnikGry::render()
 	this->window->clear();
 
 	//Render
+	this->t³o.render(*this->window);
 	this->bohater->render(*this->window);
-
+	
 
 	this->window->display();
 }

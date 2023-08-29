@@ -138,12 +138,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Platformy.cpp" />
     <ClCompile Include="SilnikGry.cpp" />
+    <ClCompile Include="Tło.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bohater.h" />
     <ClInclude Include="Bonusy.h" />
     <ClInclude Include="Platformy.h" />
     <ClInclude Include="SilnikGry.h" />
+    <ClInclude Include="Tło.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

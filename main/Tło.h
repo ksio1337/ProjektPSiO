@@ -6,29 +6,20 @@
 #include<SFML/Network.hpp>
 
 #include<iostream>
-
-class Bohater
+class T³o
 {
 private:
-	sf::Sprite spriteB;
-	sf::Texture textureB;
+	sf::Texture textureS;
+	sf::Sprite spriteS;
 
-	float speed;
-
-	
-
-	void initVariables();
 	void initTexture();
 	void initSprite();
 public:
 	//Konstruktor i destruktor
-	Bohater();
-	virtual ~Bohater();
+	T³o();
+	virtual ~T³o();
 
 
-
-
-	void updateInput();
 	void update();
 	void render(sf::RenderTarget& target);
 };

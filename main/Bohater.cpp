@@ -15,10 +15,10 @@ void Bohater::initTexture()
 void Bohater::initSprite()
 {
 	//Przypisanie tekstury do sprite'a
-	this->sprite.setTexture(this->textureB);
-	this->sprite.setPosition(0.f, 0.f);
+	this->spriteB.setTexture(this->textureB);
+	this->spriteB.setPosition(400.f, 440.f);
 	//Resize
-	this->sprite.scale(5.f, 5.f);
+	this->spriteB.scale(5.f, 5.f);
 }
 
 
@@ -38,15 +38,15 @@ void Bohater::updateInput()
 		//Left
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			this->sprite.move(-this->speed, 0.f);
+			this->spriteB.move(-this->speed, 0.f);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			this->sprite.move(this->speed, 0.f);
+			this->spriteB.move(this->speed, 0.f);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 		{
-			this->sprite.move(0.f, -this->speed);
+			this->spriteB.move(0.f, -this->speed);
 		}
 }
 
@@ -56,5 +56,5 @@ void Bohater::update()
 
 void Bohater::render(sf::RenderTarget& target)
 {
-	target.draw(this->sprite);
+	target.draw(this->spriteB);
 }
