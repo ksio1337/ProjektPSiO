@@ -10,15 +10,16 @@
 #include"Platformy.h"
 #include"T³o.h"
 
+#include<vector>
+
 class SilnikGry
 {
 private:
-	
 	sf::VideoMode videoMode;
 	sf::RenderWindow* window;
 	bool endGame;
 
-	
+	std::vector<Platformy*> platformy;
 
 	Bohater* bohater;
 	T³o t³o;
@@ -26,6 +27,7 @@ private:
 	void initVariables();
 	void initWindow();
 	void initPlayer();
+	void initPlatform();
 public:
 	//Konstruktor i destruktor
 	SilnikGry();
@@ -33,7 +35,7 @@ public:
 
 	//Funkcje
 	void run();
-	//const bool running() const;
+
 
 	void update();
 	void render();

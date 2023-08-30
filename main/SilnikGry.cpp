@@ -8,7 +8,7 @@ void SilnikGry::initVariables()
 void SilnikGry::initWindow()
 {
 	
-	this->window = new sf::RenderWindow(sf::VideoMode(800, 600), "ProjektSFML", sf::Style::Close | sf::Style::Titlebar);
+	this->window = new sf::RenderWindow(sf::VideoMode(800, 1200), "ProjektSFML", sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(60);
 }
 
@@ -17,11 +17,17 @@ void SilnikGry::initPlayer()
 	this->bohater = new Bohater();
 }
 
+void SilnikGry::initPlatform()
+{
+	this->platformy.push_back(new Platformy(0, 1180, 1.f, 0.2f, 0.f, "Textures/platfromStart.png"));
+}
+
 SilnikGry::SilnikGry()
 {
 	this->initVariables();
 	this->initWindow();
 	this->initPlayer();
+	this->initPlatform();
 }
 
 SilnikGry::~SilnikGry()
@@ -30,10 +36,6 @@ SilnikGry::~SilnikGry()
 	delete this->bohater;
 }
 
-/*const bool SilnikGry::running() const
-{
-	return this->window->isOpen();
-}*/
 
 void SilnikGry::run()
 {
@@ -46,6 +48,8 @@ void SilnikGry::run()
 	}
 }
 
+
+
 void SilnikGry::update()
 {
 	sf::Event event;
@@ -56,6 +60,7 @@ void SilnikGry::update()
 		if(event.Event::KeyPressed && event.Event::key.code == sf::Keyboard::Escape)
 			this->window->close();
 	}
+	this->bohater->update(this->window);
 }
 
 void SilnikGry::render()
@@ -63,7 +68,13 @@ void SilnikGry::render()
 	this->window->clear();
 
 	//Render
+
 	this->t³o.render(*this->window);
+	for (size_t i = 0; i < platformy.size(); i++)
+	{
+		this->platformy[i]->render(*this->window);
+	}
+	
 	this->bohater->render(*this->window);
 	
 

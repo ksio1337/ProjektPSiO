@@ -6,18 +6,20 @@
 #include<SFML/Network.hpp>
 
 #include<iostream>
-class T³o
+class Platformy
 {
 private:
-	sf::Texture textureS;
-	sf::Sprite spriteS;
+	sf::Texture textureP;
+	sf::Sprite spriteP;
 
-	void initTexture();
-	void initSprite();
+	float speed;
+
+	void initTexture(std::string path);
+	void initSprite(int x, int y, float xScale, float yScale);
 public:
 	//Konstruktor i destruktor
-	T³o();
-	virtual ~T³o();
+	Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath);
+	virtual ~Platformy();
 
 
 	void update();

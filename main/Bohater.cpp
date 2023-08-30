@@ -2,6 +2,7 @@
 
 void Bohater::initVariables()
 {
+	this->speed = 5.f;
 }
 
 void Bohater::initTexture()
@@ -16,14 +17,18 @@ void Bohater::initSprite()
 {
 	//Przypisanie tekstury do sprite'a
 	this->spriteB.setTexture(this->textureB);
-	this->spriteB.setPosition(400.f, 440.f);
+	
 	//Resize
 	this->spriteB.scale(5.f, 5.f);
 }
 
 
-Bohater::Bohater()
+Bohater::Bohater(float x, float y)
 {
+	this->x = x;
+	this->y = y;
+	this->initVariables();
+
 	this->initTexture();
 	this->initSprite();
 }
@@ -38,20 +43,44 @@ void Bohater::updateInput()
 		//Left
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			this->spriteB.move(-this->speed, 0.f);
+			if (x > -40)
+			{
+				this->x -= this->speed;
+			}
 		}
+		//Right
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			this->spriteB.move(this->speed, 0.f);
+			if (x < 690)
+			{
+				this->x += this->speed;
+			}
+		
+			
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+		//Jump
+		dy += 0.4;
+		y += dy;
+		if (y > 1100)
 		{
-			this->spriteB.move(0.f, -this->speed);
+			dy = -15;
 		}
+		this->spriteB.setPosition(x, y);
 }
 
-void Bohater::update()
+void Bohater::updateWindowBoundsCollision(const sf::RenderTarget* target)
 {
+		
+		//Bottom
+		if (this->spriteB.getGlobalBounds().top + this->spriteB.getGlobalBounds().height >= target->getSize().y)
+			this->spriteB.setPosition(this->spriteB.getGlobalBounds().left, target->getSize().y - this->spriteB.getGlobalBounds().height + 5.f);
+}
+
+void Bohater::update(const sf::RenderTarget* target)
+{
+	this->updateInput();
+
+	this->updateWindowBoundsCollision(target);
 }
 
 void Bohater::render(sf::RenderTarget& target)

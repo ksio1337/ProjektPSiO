@@ -12,6 +12,8 @@ void T³o::initSprite()
 {
 	//Przypisanie tekstury do sprite'a
 	this->spriteS.setTexture(this->textureS);
+
+	this->spriteS.setScale(1.f, 2.f);
 }
 
 T³o::T³o()

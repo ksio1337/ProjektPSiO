@@ -14,7 +14,9 @@ private:
 	sf::Texture textureB;
 
 	float speed;
-
+	float dx = 0.f, dy = 0.f;
+	int x = 0, y = 0, h = 200;
+	
 	
 
 	void initVariables();
@@ -22,14 +24,15 @@ private:
 	void initSprite();
 public:
 	//Konstruktor i destruktor
-	Bohater();
+	Bohater(float x = 400.f, float y =1100.f);
 	virtual ~Bohater();
 
 
 
 
 	void updateInput();
-	void update();
+	void updateWindowBoundsCollision(const sf::RenderTarget* target);
+	void update(const sf::RenderTarget* target);
 	void render(sf::RenderTarget& target);
 };
 
