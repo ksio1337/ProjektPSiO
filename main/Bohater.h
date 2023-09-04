@@ -12,10 +12,10 @@ class Bohater
 private:
 	sf::Sprite spriteB;
 	sf::Texture textureB;
-
+	
 	float speed;
 	float dx = 0.f, dy = 0.f;
-	int x = 0, y = 0, h = 200;
+	int x = 0, y = 0;
 	
 	
 
@@ -27,8 +27,9 @@ public:
 	Bohater(float x = 400.f, float y =1100.f);
 	virtual ~Bohater();
 
-
-
+	sf::FloatRect playerGetBounds();
+	void jump();
+	float direction();
 
 	void updateInput();
 	void updateWindowBoundsCollision(const sf::RenderTarget* target);

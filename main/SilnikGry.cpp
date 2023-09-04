@@ -44,6 +44,8 @@ void SilnikGry::initPlatform()
 
 
 
+
+
 SilnikGry::SilnikGry()
 {
 	this->initVariables();
@@ -70,6 +72,21 @@ void SilnikGry::run()
 	}
 }
 
+void SilnikGry::onCollision()
+{
+	for (size_t i = 0; i < platformy.size(); i++)
+	{
+		if (bohater->direction() > 0)
+		{
+			if (bohater->playerGetBounds().intersects(platformy[i]->platformGetBounds()))
+			{
+				std::cout << "collision" << std::endl;
+				bohater->jump();
+			}
+		}
+	}
+	
+}
 
 
 void SilnikGry::update()
@@ -87,6 +104,7 @@ void SilnikGry::update()
 	{
 		this->platformy[i]->update();
 	}
+	this->onCollision();
 }
 
 void SilnikGry::render()

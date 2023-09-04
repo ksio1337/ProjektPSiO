@@ -36,6 +36,13 @@ Platformy::~Platformy()
 
 }
 
+sf::FloatRect Platformy::platformGetBounds()
+{
+	return spriteP.getGlobalBounds();
+}
+
+
+
 void Platformy::changeDirection()
 {
 	this->speed *= -1;

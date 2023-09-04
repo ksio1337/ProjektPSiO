@@ -20,15 +20,17 @@ private:
 	bool endGame;
 
 	std::vector<Platformy*> platformy;
+	
 
 	Bohater* bohater;
 	T³o t³o;
 	
-	void platformDown();
 	void initVariables();
 	void initWindow();
 	void initPlayer();
 	void initPlatform();
+	
+	
 public:
 	//Konstruktor i destruktor
 	SilnikGry();
@@ -37,6 +39,8 @@ public:
 	//Funkcje
 	void run();
 
+
+	void onCollision();
 
 	void update();
 	void render();

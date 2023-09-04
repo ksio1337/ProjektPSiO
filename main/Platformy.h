@@ -21,6 +21,8 @@ public:
 	Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath);
 	virtual ~Platformy();
 
+	sf::FloatRect platformGetBounds();
+
 	void changeDirection();
 	
 	void update();

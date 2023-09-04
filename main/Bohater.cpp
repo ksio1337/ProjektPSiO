@@ -37,6 +37,21 @@ Bohater::~Bohater()
 {
 }
 
+sf::FloatRect Bohater::playerGetBounds()
+{
+	return spriteB.getGlobalBounds();
+}
+
+void Bohater::jump()
+{
+	this->dy = -15;
+}
+
+float Bohater::direction()
+{
+	return this->dy;
+}
+
 void Bohater::updateInput()
 {
 		//Keyboards input
