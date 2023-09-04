@@ -24,6 +24,7 @@ private:
 	Bohater* bohater;
 	T³o t³o;
 	
+	void platformDown();
 	void initVariables();
 	void initWindow();
 	void initPlayer();

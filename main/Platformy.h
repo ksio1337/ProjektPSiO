@@ -13,7 +13,7 @@ private:
 	sf::Sprite spriteP;
 
 	float speed;
-
+	
 	void initTexture(std::string path);
 	void initSprite(int x, int y, float xScale, float yScale);
 public:
@@ -21,7 +21,8 @@ public:
 	Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath);
 	virtual ~Platformy();
 
-
+	void changeDirection();
+	
 	void update();
 	void render(sf::RenderTarget& target);
 };

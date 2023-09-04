@@ -19,8 +19,30 @@ void SilnikGry::initPlayer()
 
 void SilnikGry::initPlatform()
 {
+	int ySpawn = 0;
 	this->platformy.push_back(new Platformy(0, 1180, 1.f, 0.2f, 0.f, "Textures/platfromStart.png"));
+	do
+	{
+		int randNumber = std::rand()%3;
+		std::cout << "Number is: " << randNumber << "\n";
+
+		ySpawn += 150;
+		switch (randNumber)
+		{
+		case 0:
+			this->platformy.push_back(new Platformy(std::rand() % 700 + 50, ySpawn, 0.2f, 0.2f, 0.f, "Textures/platfromDisappearing.png"));
+			break;
+		case 1:
+			this->platformy.push_back(new Platformy(std::rand() % 600 + 40, ySpawn, 0.2f, 0.2f, 4.f, "Textures/platfromMoving.png"));
+			break;
+		case 2:
+			this->platformy.push_back(new Platformy(std::rand() % 700 + 50, ySpawn, 0.2f, 0.2f, 0.f, "Textures/platfromStart.png"));
+			break;
+		}
+	} while (ySpawn < 2000);
 }
+
+
 
 SilnikGry::SilnikGry()
 {
@@ -61,6 +83,10 @@ void SilnikGry::update()
 			this->window->close();
 	}
 	this->bohater->update(this->window);
+	for (size_t i = 0; i < platformy.size(); i++)
+	{
+		this->platformy[i]->update();
+	}
 }
 
 void SilnikGry::render()
