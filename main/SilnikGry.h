@@ -18,6 +18,9 @@ private:
 	sf::VideoMode videoMode;
 	sf::RenderWindow* window;
 	bool endGame;
+	sf::View gameView;
+	
+	int h = 700;
 
 	std::vector<Platformy*> platformy;
 	
@@ -29,8 +32,7 @@ private:
 	void initWindow();
 	void initPlayer();
 	void initPlatform();
-	
-	
+	void movingScreen();
 public:
 	//Konstruktor i destruktor
 	SilnikGry();

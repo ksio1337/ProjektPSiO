@@ -48,6 +48,16 @@ void Platformy::changeDirection()
 	this->speed *= -1;
 }
 
+sf::Vector2f Platformy::platformGetPos()
+{
+	return spriteP.getPosition();
+}
+
+/*void Platformy::platformSetHeight(float height)
+{
+	this->spriteP.setPosition(this->spriteP.getPosition().x, height);
+}*/
+
 
 
 void Platformy::update()

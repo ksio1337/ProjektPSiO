@@ -25,6 +25,9 @@ public:
 
 	void changeDirection();
 	
+	sf::Vector2f platformGetPos();
+	void platformSetHeight(float height);
+
 	void update();
 	void render(sf::RenderTarget& target);
 };

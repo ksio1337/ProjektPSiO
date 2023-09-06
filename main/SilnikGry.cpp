@@ -1,7 +1,10 @@
 #include "SilnikGry.h"
 
+
+
 void SilnikGry::initVariables()
 {
+	//this->animState = PLAYER_ANIMATION_STATES::IDLE;
 	this->endGame = false;
 }
 
@@ -26,7 +29,7 @@ void SilnikGry::initPlatform()
 		int randNumber = std::rand()%3;
 		std::cout << "Number is: " << randNumber << "\n";
 
-		ySpawn += 150;
+		ySpawn += 230;
 		switch (randNumber)
 		{
 		case 0:
@@ -41,6 +44,26 @@ void SilnikGry::initPlatform()
 		}
 	} while (ySpawn < 2000);
 }
+
+void SilnikGry::movingScreen()
+{
+	/*if (bohater->playerGetPos().y < h)
+	{
+		for (int i = 0; i < platformy.size(); i++)
+		{
+			bohater->playerSetHeight(h);
+			platformy[i]->platformSetHeight(platformy[i]->platformGetPos().y - bohater->direction());
+			if (platformy[i]->platformGetPos().y > 1200)
+			{
+				platformy[i]->platformSetHeight(0);
+
+			}
+		}
+	}*/
+}
+		
+
+
 
 
 
@@ -99,16 +122,31 @@ void SilnikGry::update()
 		if(event.Event::KeyPressed && event.Event::key.code == sf::Keyboard::Escape)
 			this->window->close();
 	}
+
+	if (event.Event::KeyReleased &&
+		(
+			event.Event::key.code == sf::Keyboard::A ||
+			event.Event::key.code == sf::Keyboard::D
+			)
+		)
+	{
+		this->bohater->resetAnimationTimer();
+	}
+
+
+
 	this->bohater->update(this->window);
 	for (size_t i = 0; i < platformy.size(); i++)
 	{
 		this->platformy[i]->update();
 	}
 	this->onCollision();
+	//this->movingScreen();
 }
 
 void SilnikGry::render()
 {
+	
 	this->window->clear();
 
 	//Render
