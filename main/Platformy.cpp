@@ -1,9 +1,5 @@
 #include "Platformy.h"
 
-
-
-
-
 void Platformy::initTexture(std::string path)
 {
 	if (!this->textureP.loadFromFile(path))
@@ -22,12 +18,12 @@ void Platformy::initSprite(int x, int y, float xScale, float yScale)
 	this->spriteP.scale(xScale, yScale);
 }
 
-Platformy::Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath)
+Platformy::Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath, bool isSand)
 {
 	
 	this->initTexture(filePath);
 	this->initSprite(xPos, yPos, xScale, yScale);
-
+	this->isSand = isSand;
 	this->speed = speed;
 }
 
@@ -48,15 +44,20 @@ void Platformy::changeDirection()
 	this->speed *= -1;
 }
 
+bool Platformy::isPlatformSand()
+{
+	return this->isSand;
+}
+
 sf::Vector2f Platformy::platformGetPos()
 {
 	return spriteP.getPosition();
 }
 
-/*void Platformy::platformSetHeight(float height)
+void Platformy::platformSetHeight(float height)
 {
 	this->spriteP.setPosition(this->spriteP.getPosition().x, height);
-}*/
+}
 
 
 

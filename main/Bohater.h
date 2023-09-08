@@ -7,7 +7,7 @@
 
 #include<iostream>
 
-enum PLAYER_ANIMATION_STATES {IDLE = 0, MOVING_LEFT, MOVING_RIGHT, JUMPING, FALLING};
+enum PLAYER_ANIMATION_STATES {IDLE = 0, MOVING_LEFT, MOVING_RIGHT};
 
 class Bohater
 {
@@ -41,6 +41,7 @@ public:
 	void jump();
 	float direction();
 
+	sf::Vector2f playerGetPos();
 	void playerSetHeight(float height);
 	void resetAnimationTimer();
 	void updateInput();

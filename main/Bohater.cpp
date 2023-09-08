@@ -12,9 +12,7 @@ void Bohater::initTexture()
 	{
 		std::cout << "ERROR:BOHATER:INITTEXTURE::NIE ZALADOWANO TEKSTURY." << "\n";
 	}
-
 }
-
 
 void Bohater::initSprite()
 {
@@ -26,7 +24,6 @@ void Bohater::initSprite()
 	this->spriteB.setTextureRect(this->currentFrame);
 	//Resize
 	this->spriteB.scale(5.f, 5.f);
-
 }
 
 void Bohater::initAnimations()
@@ -34,7 +31,6 @@ void Bohater::initAnimations()
 	this->animationTimer.restart();
 	this->animationSwitch = true;
 }
-
 
 Bohater::Bohater(float x, float y)
 {
@@ -81,10 +77,14 @@ float Bohater::direction()
 	return this->dy;
 }
 
+sf::Vector2f Bohater::playerGetPos()
+{
+	return this->spriteB.getPosition();
+}
 
 void Bohater::playerSetHeight(float height)
 {
-	//this->spriteB.setPosition(this->spriteB.getPosition().x, height);
+	this->y = height;
 }
 
 void Bohater::resetAnimationTimer()
@@ -100,7 +100,7 @@ void Bohater::updateInput()
 		//Left
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 		{
-			if (x > -40)
+			if (x > 0)
 			{
 				this->x -= this->speed;
 				this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
@@ -109,7 +109,7 @@ void Bohater::updateInput()
 		//Right
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 		{
-			if (x < 690)
+			if (x < 720)
 			{
 				this->x += this->speed;
 				this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
@@ -182,19 +182,6 @@ void Bohater::updateAnimations()
 		this->spriteB.setScale(-5.f, 5.f);
 		this->spriteB.setOrigin(this->spriteB.getGlobalBounds().width / 5.f, 0.f);
 
-	}
-	else if (this->animState == PLAYER_ANIMATION_STATES::JUMPING)
-	{
-		if (this->animationTimer.getElapsedTime().asSeconds() >= 0.1f || this->getAnimSwitch())
-		{
-			this->currentFrame.top = 32.f;
-			this->currentFrame.left += 16.f;
-			if (this->currentFrame.left >= 0.f)
-				this->currentFrame.left = 0;
-
-			this->animationTimer.restart();
-			this->spriteB.setTextureRect(this->currentFrame);
-		}
 	}
 	else 
 		this->animationTimer.restart();

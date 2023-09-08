@@ -12,19 +12,21 @@ private:
 	sf::Texture textureP;
 	sf::Sprite spriteP;
 
+	bool isSand;
 	float speed;
 	
 	void initTexture(std::string path);
 	void initSprite(int x, int y, float xScale, float yScale);
 public:
 	//Konstruktor i destruktor
-	Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath);
+	Platformy(int xPos, int yPos, float xScale, float yScale, float speed, std::string filePath, bool isSand);
 	virtual ~Platformy();
 
 	sf::FloatRect platformGetBounds();
 
 	void changeDirection();
-	
+	bool isPlatformSand();
+
 	sf::Vector2f platformGetPos();
 	void platformSetHeight(float height);
 
