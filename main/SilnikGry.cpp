@@ -48,6 +48,17 @@ void SilnikGry::initPlatform()
 	} while (ySpawn > 0);
 	
 }
+void SilnikGry::initBonuses()
+{
+	for (int i = 0; i < 1; i++)
+	{
+		this->bonusyJ.push_back(new BonusJump(std::rand() % 770, std::rand() % 400));
+	}
+	for (int i = 0; i < 1; i++)
+	{
+		this->bonusyP.push_back(new BonusPoints(std::rand() % 770, std::rand() % 400));
+	}
+}
 //Funkcja inicjuj¹ca czcionke
 void SilnikGry::initFonts()
 {
@@ -68,8 +79,8 @@ void SilnikGry::initText()
 	//End game text
 	this->endGameText.setFont(this->font);
 	this->endGameText.setFillColor(sf::Color::Red);
-	this->endGameText.setCharacterSize(60);
-	this->endGameText.setPosition(sf::Vector2f(400, 600));
+	this->endGameText.setCharacterSize(100);
+	this->endGameText.setPosition(sf::Vector2f(230, 50));
 	this->endGameText.setString("Koniec gry");
 }
 
@@ -82,13 +93,35 @@ void SilnikGry::movingScreen()
 		{
 			bohater->playerSetHeight(h);
 			platformy[i]->platformSetHeight(platformy[i]->platformGetPos().y - bohater->direction());
+			
 			if (platformy[i]->platformGetPos().y >= 1200)
 			{
+				int random = std::rand() % 11;
+				switch (random)
+				{
+				case 6:
+					this->bonusyJ[0]->shapeSetPos(std::rand() % 770, -230);
+					break;
+				case 9:
+					this->bonusyP[0]->shapeSetPos(std::rand() % 770, -230);
+					break;
+				default:
+					break;
+				}
 				delete this->platformy[0];
 				platformy.erase(this->platformy.begin());
 				this->makePlatform(0.f);
 				std::cout << "usuwam " << i << std::endl;
 			}
+		}
+		for (size_t i = 0; i < bonusyJ.size(); i++)
+		{
+			bonusyJ[i]->bonusSetHeight(bonusyJ[i]->bonusGetPos().y - bohater->direction());
+			
+		}
+		for (size_t i = 0; i < bonusyP.size(); i++)
+		{
+			bonusyP[i]->bonusSetHeight(bonusyP[i]->bonusGetPos().y - bohater->direction());
 		}
 	}
 }
@@ -122,6 +155,7 @@ SilnikGry::SilnikGry()
 	this->initPlatform();
 	this->initFonts();
 	this->initText();
+	this->initBonuses();
 }
 
 //Destruktor
@@ -158,9 +192,9 @@ void SilnikGry::onCollision()
 				bohater->jump();
 				if (this->platformy[i]->hasCollided() == false)
 				{
-					std::cout << "collision" << std::endl;
-					
 					this->points++;
+					//bonusPoints->setBonusPoints(5);
+					//this->points+= bonusPoints->getBonusPoints();
 					if (this->points == 2)
 					{
 						bohater->setInAir();
@@ -177,6 +211,40 @@ void SilnikGry::onCollision()
 		}
 	}
 
+}
+
+void SilnikGry::bonusCollision()
+{	
+	for (size_t i = 0; i < bonusyJ.size(); i++)
+	{
+		if (this->bonusyJ[i]->bonusCollision(this->bohater->getPosition()))
+		{
+			if (bohater->direction() > 0)
+			{
+				if (bohater->playerGetBounds().intersects(bonusyJ[i]->shapeGetBounds()))
+				{
+					this->bonusyJ[i]->shapeSetPos(-100, 0);
+					this->bohater->doubleJump();
+					this->points += 5;
+				}
+			}
+		}
+	}
+	for (size_t i = 0; i < bonusyP.size(); i++)
+	{
+		if (this->bonusyP[i]->bonusCollision(this->bohater->getPosition()))
+		{
+			if (bohater->direction() > 0)
+			{
+				if (bohater->playerGetBounds().intersects(bonusyP[i]->shapeGetBounds()))
+				{
+					this->bonusyP[i]->shapeSetPos(-100, 0);
+					this->points += 10;
+				}
+			}
+		}
+	}
+	
 }
 
 //Funkcja do updatowania tekstu wyœwietlaj¹cego siê ekranie
@@ -226,10 +294,20 @@ void SilnikGry::update()
 		{
 			this->platformy[i]->update();
 		}
+		
+		for (size_t i = 0; i < bonusyJ.size(); i++)
+		{
+			this->bonusyJ[i]->update();
+		}
+		for (size_t i = 0; i < bonusyP.size(); i++)
+		{
+			this->bonusyJ[i]->update();
+		}
 		this->onCollision();
 		this->updateGui();
 		this->updatePlayer();
 		this->movingScreen();
+		this->bonusCollision();
 	}
 }
 
@@ -250,6 +328,15 @@ void SilnikGry::render()
 	for (size_t i = 0; i < platformy.size(); i++)
 	{
 		this->platformy[i]->render(*this->window);
+	}
+	
+	for (size_t i = 0; i < bonusyJ.size(); i++)
+	{
+		this->bonusyJ[i]->render(this->window);
+	}
+	for (size_t i = 0; i < bonusyP.size(); i++)
+	{
+		this->bonusyP[i]->render(this->window);
 	}
 	
 	this->bohater->render(*this->window);

@@ -28,7 +28,7 @@ public:
 
 	//Funkcja returnuj¹ca globalbounds z platform
 	sf::FloatRect platformGetBounds();
-
+	
 	//Funkcja zmieniaj¹ca kierunek poruszania siê dla drewnianych platform
 	void changeDirection();
 	//Bool sprawdzaj¹cy czy platforma jest z piasku

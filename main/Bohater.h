@@ -49,6 +49,7 @@ public:
 	sf::FloatRect playerGetBounds();
 	//Funkcja do automatycznego skakania
 	void jump();
+	void doubleJump();
 	float direction();
 	//Funkcja ustawiaj¹ca bool inAir na true
 	void setInAir();

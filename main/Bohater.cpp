@@ -81,6 +81,11 @@ void Bohater::jump()
 	this->dy = -15;
 }
 
+void Bohater::doubleJump()
+{
+	this->dy = -30;
+}
+
 float Bohater::direction()
 {
 	return this->dy;

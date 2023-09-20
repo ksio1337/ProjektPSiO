@@ -9,7 +9,8 @@
 #include"Bonusy.h"
 #include"Platformy.h"
 #include"T³o.h"
-
+#include"BonusJump.h"
+#include"BonusPoints.h"
 
 #include<vector>
 #include<sstream>
@@ -26,6 +27,7 @@ private:
 	bool endGame;
 
 	int points;
+	//Bonusy* bonusPoints;
 
 	//Czcionka i tekst wyœwietlaj¹cy siê na ekranie
 	sf::Font font;
@@ -36,6 +38,8 @@ private:
 
 	//Obiekty klas
 	std::vector<Platformy*> platformy;
+	std::vector<BonusJump*> bonusyJ;
+	std::vector < BonusPoints*> bonusyP;
 	Bohater* bohater;
 	T³o t³o;
 	
@@ -46,6 +50,7 @@ private:
 	//Funkcje inicjuj¹ce gracza i platformy
 	void initPlayer();
 	void initPlatform();
+	void initBonuses();
 	//Funkcje inicjuj¹ce czcionke i tekst
 	void initFonts();
 	void initText();
@@ -66,7 +71,8 @@ public:
 
 	//Funkcja do kolizji pomiêdzy graczem a platform¹
 	void onCollision();
-
+	//Kolizje gracza z bonusami
+	void bonusCollision();
 	//Funkcja do updatowania tekstu wyœwietlaj¹cego siê ekranie
 	void updateGui();
 	//Funkcja do updatowania gracza
