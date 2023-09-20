@@ -1,11 +1,13 @@
 #include "Bohater.h"
 
+//Inicjalizacja wartoœci
 void Bohater::initVariables()
 {
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;
 	this->speed = 5.f;
 }
 
+//Inicjalizacja tekstury
 void Bohater::initTexture()
 {
 	if (!this->textureB.loadFromFile("Textures/bohater.png"))
@@ -13,7 +15,7 @@ void Bohater::initTexture()
 		std::cout << "ERROR:BOHATER:INITTEXTURE::NIE ZALADOWANO TEKSTURY." << "\n";
 	}
 }
-
+//Inicjalizacja sprita
 void Bohater::initSprite()
 {
 	//Przypisanie tekstury do sprite'a
@@ -26,12 +28,14 @@ void Bohater::initSprite()
 	this->spriteB.scale(5.f, 5.f);
 }
 
+//Inicjalizacja animacji
 void Bohater::initAnimations()
 {
 	this->animationTimer.restart();
 	this->animationSwitch = true;
 }
 
+//Konstruktor
 Bohater::Bohater(float x, float y)
 {
 	this->x = x;
@@ -43,10 +47,12 @@ Bohater::Bohater(float x, float y)
 	this->initAnimations();
 }
 
+//Destruktor
 Bohater::~Bohater()
 {
 }
 
+//Bool do zmiany animacji
 const bool& Bohater::getAnimSwitch()
 {
 	bool anim_switch = this->animationSwitch;
@@ -57,16 +63,19 @@ const bool& Bohater::getAnimSwitch()
 	return anim_switch;
 }
 
+//Funkcja returnuj¹ca pozycje bohatera
 const sf::Vector2f Bohater::getPosition() const
 {
 	return this->spriteB.getPosition();
 }
 
+//Funkcja returnuj¹ca bounds bohatera
 sf::FloatRect Bohater::playerGetBounds()
 {
 	return spriteB.getGlobalBounds();
 }
 
+//Funkcja do automatycznego skakania
 void Bohater::jump()
 {
 	this->dy = -15;
@@ -77,27 +86,32 @@ float Bohater::direction()
 	return this->dy;
 }
 
+//Funkcja ustawiaj¹ca bool inAir na true
 void Bohater::setInAir()
 {
 	this->inAir = true;
 }
 
+//Funkcja returnuj¹ca pozycje bohatera
 sf::Vector2f Bohater::playerGetPos()
 {
 	return this->spriteB.getPosition();
 }
 
+//Funkcja do ustawiania wysokoœci bohatera na konkretny y
 void Bohater::playerSetHeight(float height)
 {
 	this->y = height;
 }
 
+//Reset timera animacji
 void Bohater::resetAnimationTimer()
 {
 	this->animationTimer.restart();
 	this->animationSwitch = true;
 }
 
+//Funkcja do sterowania
 void Bohater::updateInput()
 {
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;
@@ -136,15 +150,7 @@ void Bohater::updateInput()
 		this->spriteB.setPosition(x, y);
 }
 
-
-void Bohater::updateWindowBoundsCollision(const sf::RenderTarget* target)
-{
-		
-		//Bottom
-		//if (this->spriteB.getPosition().y + this->spriteB.getGlobalBounds().height >= target->getSize().y)
-			//this->spriteB.setPosition(this->spriteB.getPosition().x, target->getSize().y - this->spriteB.getGlobalBounds().height + 5.f);
-}
-
+//Update animacji
 void Bohater::updateAnimations()
 {
 	if (this->animState == PLAYER_ANIMATION_STATES::IDLE)
@@ -197,13 +203,14 @@ void Bohater::updateAnimations()
 		this->animationTimer.restart();
 }
 
+//Update bohatera
 void Bohater::update(const sf::RenderTarget* target)
 {
 	this->updateInput();
 	this->updateAnimations();
-	this->updateWindowBoundsCollision(target);
 }
 
+//Render bohatera
 void Bohater::render(sf::RenderTarget& target)
 {
 	target.draw(this->spriteB);

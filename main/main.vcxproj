@@ -134,6 +134,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bohater.cpp" />
+    <ClCompile Include="BonusJump.cpp" />
+    <ClCompile Include="BonusPoints.cpp" />
     <ClCompile Include="Bonusy.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Platformy.cpp" />
@@ -142,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bohater.h" />
+    <ClInclude Include="BonusJump.h" />
+    <ClInclude Include="BonusPoints.h" />
     <ClInclude Include="Bonusy.h" />
     <ClInclude Include="Platformy.h" />
     <ClInclude Include="SilnikGry.h" />

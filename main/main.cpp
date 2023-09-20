@@ -2,21 +2,15 @@
 
 int main()
 {
-	//Initialize random seed
+
 	srand(static_cast<unsigned>(time(0)));
 
-	//Initialize game object
+	//Obiekt gry
 	SilnikGry silnikGry; 
 
-	//Game loop
+	//Pętla gry
 	silnikGry.run();
-	/*while (silnikGry.running())
-	{
-		silnikGry.update();
-		silnikGry.render();
+	
 
-	}*/
-
-	//End of application
 	return 0;
 }

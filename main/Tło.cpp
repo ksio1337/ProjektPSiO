@@ -1,5 +1,6 @@
 #include "T這.h"
 
+//Inicjalizacja tekstury
 void T這::initTexture()
 {
 	if (!this->textureS.loadFromFile("Textures/sky.png"))
@@ -8,6 +9,7 @@ void T這::initTexture()
 	}
 }
 
+//Inicjalizacja sprita
 void T這::initSprite()
 {
 	//Przypisanie tekstury do sprite'a
@@ -16,19 +18,19 @@ void T這::initSprite()
 	this->spriteS.setScale(1.f, 2.f);
 }
 
+//Kontruktor
 T這::T這()
 {
 	this->initTexture();
 	this->initSprite();
 }
 
+//Desturktor
 T這::~T這()
 {
 }
 
-void T這::update()
-{
-}
+
 
 void T這::render(sf::RenderTarget& target)
 {

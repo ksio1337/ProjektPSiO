@@ -122,7 +122,6 @@ SilnikGry::SilnikGry()
 	this->initPlatform();
 	this->initFonts();
 	this->initText();
-	//this->makePlatform(0.f);
 }
 
 //Destruktor

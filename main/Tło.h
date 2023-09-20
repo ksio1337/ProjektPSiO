@@ -9,9 +9,11 @@
 class T³o
 {
 private:
+	//Tektura i sprite backgroundu
 	sf::Texture textureS;
 	sf::Sprite spriteS;
 
+	//Inicjalizacja tekstury i sprita
 	void initTexture();
 	void initSprite();
 public:
@@ -19,8 +21,7 @@ public:
 	T³o();
 	virtual ~T³o();
 
-
-	void update();
+	//Render t³a
 	void render(sf::RenderTarget& target);
 };
 
