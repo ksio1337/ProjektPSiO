@@ -37,7 +37,7 @@ Bohater::Bohater(float x, float y)
 	this->x = x;
 	this->y = y;
 	this->initVariables();
-
+	this->inAir = false;
 	this->initTexture();
 	this->initSprite();
 	this->initAnimations();
@@ -77,6 +77,11 @@ float Bohater::direction()
 	return this->dy;
 }
 
+void Bohater::setInAir()
+{
+	this->inAir = true;
+}
+
 sf::Vector2f Bohater::playerGetPos()
 {
 	return this->spriteB.getPosition();
@@ -96,43 +101,48 @@ void Bohater::resetAnimationTimer()
 void Bohater::updateInput()
 {
 	this->animState = PLAYER_ANIMATION_STATES::IDLE;
-		//Keyboards input
-		//Left
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//Keyboards input
+	//Left
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		if (x > 0)
 		{
-			if (x > 0)
-			{
-				this->x -= this->speed;
-				this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
-			}
+			this->x -= this->speed;
+			this->animState = PLAYER_ANIMATION_STATES::MOVING_LEFT;
 		}
-		//Right
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	}
+	//Right
+	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		if (x < 720)
 		{
-			if (x < 720)
-			{
-				this->x += this->speed;
-				this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
-			}
-		
-			
+			this->x += this->speed;
+			this->animState = PLAYER_ANIMATION_STATES::MOVING_RIGHT;
 		}
-		//Jump
-		dy += 0.4;
-		y += dy;
+
+
+	}
+	//Jump
+
+	dy += 0.4;
+	y += dy;
+	if (!this->inAir)
+	{
 		if (y > 1100)
 		{
 			dy = -15;
 		}
+	}
 		this->spriteB.setPosition(x, y);
 }
+
 
 void Bohater::updateWindowBoundsCollision(const sf::RenderTarget* target)
 {
 		
 		//Bottom
-		if (this->spriteB.getPosition().y + this->spriteB.getGlobalBounds().height >= target->getSize().y)
-			this->spriteB.setPosition(this->spriteB.getPosition().x, target->getSize().y - this->spriteB.getGlobalBounds().height + 5.f);
+		//if (this->spriteB.getPosition().y + this->spriteB.getGlobalBounds().height >= target->getSize().y)
+			//this->spriteB.setPosition(this->spriteB.getPosition().x, target->getSize().y - this->spriteB.getGlobalBounds().height + 5.f);
 }
 
 void Bohater::updateAnimations()

@@ -12,6 +12,7 @@ private:
 	sf::Texture textureP;
 	sf::Sprite spriteP;
 
+	bool collided = false;
 	bool isSand;
 	float speed;
 	
@@ -26,7 +27,8 @@ public:
 
 	void changeDirection();
 	bool isPlatformSand();
-
+	bool hasCollided() const;
+	void setCollided(bool value);
 	sf::Vector2f platformGetPos();
 	void platformSetHeight(float height);
 

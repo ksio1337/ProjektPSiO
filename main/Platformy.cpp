@@ -49,6 +49,16 @@ bool Platformy::isPlatformSand()
 	return this->isSand;
 }
 
+bool Platformy::hasCollided() const
+{
+	return collided;
+}
+
+void Platformy::setCollided(bool value)
+{
+	collided = value;
+}
+
 sf::Vector2f Platformy::platformGetPos()
 {
 	return spriteP.getPosition();

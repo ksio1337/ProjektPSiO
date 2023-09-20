@@ -25,7 +25,9 @@ private:
 	short animState;
 	sf::IntRect currentFrame;
 	bool animationSwitch;
-	
+
+	bool inAir;
+
 	void initVariables();
 	void initTexture();
 	void initSprite();
@@ -40,7 +42,7 @@ public:
 	sf::FloatRect playerGetBounds();
 	void jump();
 	float direction();
-
+	void setInAir();
 	sf::Vector2f playerGetPos();
 	void playerSetHeight(float height);
 	void resetAnimationTimer();

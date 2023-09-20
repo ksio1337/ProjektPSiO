@@ -1,5 +1,6 @@
 #include "SilnikGry.h"
 
+//Funkcja przypisuj¹ca wartoœci do zmiennych
 void SilnikGry::initVariables()
 {
 	//this->animState = PLAYER_ANIMATION_STATES::IDLE;
@@ -7,19 +8,23 @@ void SilnikGry::initVariables()
 	this->points = 0;
 }
 
+//Funkcja tworz¹ca okno gry
 void SilnikGry::initWindow()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(800, 1200), "ProjektSFML", sf::Style::Close | sf::Style::Titlebar);
 	this->window->setFramerateLimit(60);
 }
 
+//Funkcja inicjuj¹ca gracza
 void SilnikGry::initPlayer()
 {
 	this->bohater = new Bohater();
 }
 
+//Funkcja inicjuj¹ca platformy
 void SilnikGry::initPlatform()
 {
+	
 	int ySpawn = 1150;
 	this->platformy.push_back(new Platformy(0, 1180, 1.f, 0.2f, 0.f, "Textures/platfromStart.png", false));
 	do
@@ -41,8 +46,9 @@ void SilnikGry::initPlatform()
 			break;
 		}
 	} while (ySpawn > 0);
+	
 }
-
+//Funkcja inicjuj¹ca czcionke
 void SilnikGry::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/PixellettersFull.ttf"))
@@ -51,6 +57,7 @@ void SilnikGry::initFonts()
 	}
 }
 
+//Funkcja inicjuj¹ca tekst
 void SilnikGry::initText()
 {
 	//Gui text init
@@ -66,6 +73,7 @@ void SilnikGry::initText()
 	this->endGameText.setString("Koniec gry");
 }
 
+//Funkcja poruszaj¹ca ekranem
 void SilnikGry::movingScreen()
 {
 	if (bohater->playerGetPos().y < h)
@@ -94,17 +102,18 @@ void SilnikGry::makePlatform(float height)
 	switch (randNumber)
 	{
 	case 0:
-		this->platformy.push_back(new Platformy(std::rand() % 600 + 40, height, 0.2f, 0.2f, 0.f, "Textures/platfromDisappearing.png", true));
+		this->platformy.push_back(new Platformy(std::rand() % 600 + 40, platformy[platformy.size()-1]->platformGetPos().y-230, 0.2f, 0.2f, 0.f, "Textures/platfromDisappearing.png", true));
 		break;
 	case 1:
-		this->platformy.push_back(new Platformy(std::rand() % 600 + 40, height, 0.2f, 0.2f, 4.f, "Textures/platfromMoving.png", false));
+		this->platformy.push_back(new Platformy(std::rand() % 600 + 40, platformy[platformy.size()-1]->platformGetPos().y-230, 0.2f, 0.2f, 4.f, "Textures/platfromMoving.png", false));
 		break;
 	case 2:
-		this->platformy.push_back(new Platformy(std::rand() % 600 + 40, height, 0.2f, 0.2f, 0.f, "Textures/platfromStart.png", false));
+		this->platformy.push_back(new Platformy(std::rand() % 600 + 40, platformy[platformy.size()-1]->platformGetPos().y-230, 0.2f, 0.2f, 0.f, "Textures/platfromStart.png", false));
 		break;
 	}
 }
-		
+	
+//Konstruktor
 SilnikGry::SilnikGry()
 {	
 	this->initVariables();
@@ -113,8 +122,10 @@ SilnikGry::SilnikGry()
 	this->initPlatform();
 	this->initFonts();
 	this->initText();
+	//this->makePlatform(0.f);
 }
 
+//Destruktor
 SilnikGry::~SilnikGry()
 {
 	delete this->window;
@@ -126,7 +137,7 @@ const bool& SilnikGry::getEndGame() const
 	return this->endGame;
 }
 
-
+//Funkcja odpowiadaj¹ca z uruchamianie gry
 void SilnikGry::run()
 {
 	while (this->window->isOpen())
@@ -136,7 +147,7 @@ void SilnikGry::run()
 	}
 }
 
-
+//Funkcja do kolizji pomiêdzy graczem a platform¹
 void SilnikGry::onCollision()
 {
 	for (size_t i = 0; i < platformy.size(); i++)
@@ -145,20 +156,31 @@ void SilnikGry::onCollision()
 		{
 			if (bohater->playerGetBounds().intersects(platformy[i]->platformGetBounds()))
 			{
-				std::cout << "collision" << std::endl;
 				bohater->jump();
-				if (this->platformy[i]->isPlatformSand())
+				if (this->platformy[i]->hasCollided() == false)
 				{
-					this->makePlatform((this->platformy[i]->platformGetPos().y)*(-1));
-					delete this->platformy[i];
-					platformy.erase(this->platformy.begin() + i);
+					std::cout << "collision" << std::endl;
+					
+					this->points++;
+					if (this->points == 2)
+					{
+						bohater->setInAir();
+					}
+					platformy[i]->setCollided(true);
+					if (this->platformy[i]->isPlatformSand())
+					{
+						this->makePlatform((this->platformy[i]->platformGetPos().y) * (-1));
+						delete this->platformy[i];
+						platformy.erase(this->platformy.begin() + i);
+					}
 				}
 			}
 		}
-	}	
+	}
+
 }
 
-
+//Funkcja do updatowania tekstu wyœwietlaj¹cego siê ekranie
 void SilnikGry::updateGui()
 {
 	std::stringstream ss;
@@ -168,14 +190,16 @@ void SilnikGry::updateGui()
 	this->guiText.setString(ss.str());
 }
 
+//Funkcja do updatowania gracza
 void SilnikGry::updatePlayer()
 {
 	this->bohater->update(this->window);
 
-	if(this->bohater->getPosition().y < 1200)
+	if(this->bohater->getPosition().y >= 1200)
 	this->endGame = true;
 }
 
+//Update gry
 void SilnikGry::update()
 {
 	sf::Event event;
@@ -197,24 +221,28 @@ void SilnikGry::update()
 		this->bohater->resetAnimationTimer();
 	}
 
-	for (size_t i = 0; i < platformy.size(); i++)
+	if (this->endGame == false)
 	{
-		this->platformy[i]->update();
+		for (size_t i = 0; i < platformy.size(); i++)
+		{
+			this->platformy[i]->update();
+		}
+		this->onCollision();
+		this->updateGui();
+		this->updatePlayer();
+		this->movingScreen();
 	}
-	this->onCollision();
-	this->updateGui();
-	this->updatePlayer();
-	this->movingScreen();
 }
 
+//Funkcja do renderowania tekstu wyœwietlaj¹cego siê ekranie
 void SilnikGry::renderGui(sf::RenderTarget* target)
 {
 	target->draw(this->guiText);
 }
 
+//Render gry
 void SilnikGry::render()
 {
-	
 	this->window->clear();
 
 	//Render
@@ -231,7 +259,6 @@ void SilnikGry::render()
 	this->renderGui(this->window);
 
 	//Render endGame text
-
 	if (this->endGame == true)
 		this->window->draw(this->endGameText);
 	
