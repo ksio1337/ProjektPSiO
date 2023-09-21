@@ -52,11 +52,11 @@ void SilnikGry::initBonuses()
 {
 	for (int i = 0; i < 1; i++)
 	{
-		this->bonusyJ.push_back(new BonusJump(std::rand() % 770, std::rand() % 400));
+		this->bonusy.push_back(new BonusJump(std::rand() % 770, std::rand() % 400));
 	}
 	for (int i = 0; i < 1; i++)
 	{
-		this->bonusyP.push_back(new BonusPoints(std::rand() % 770, std::rand() % 400));
+		this->bonusy.push_back(new BonusPoints(std::rand() % 770, std::rand() % 400));
 	}
 }
 //Funkcja inicjuj¹ca czcionke
@@ -100,10 +100,10 @@ void SilnikGry::movingScreen()
 				switch (random)
 				{
 				case 6:
-					this->bonusyJ[0]->shapeSetPos(std::rand() % 770, -230);
+					this->bonusy[0]->shapeSetPos(std::rand() % 770, -230);
 					break;
 				case 9:
-					this->bonusyP[0]->shapeSetPos(std::rand() % 770, -230);
+					this->bonusy[1]->shapeSetPos(std::rand() % 770, -230);
 					break;
 				default:
 					break;
@@ -114,15 +114,15 @@ void SilnikGry::movingScreen()
 				std::cout << "usuwam " << i << std::endl;
 			}
 		}
-		for (size_t i = 0; i < bonusyJ.size(); i++)
+		for (size_t i = 0; i < bonusy.size(); i++)
 		{
-			bonusyJ[i]->bonusSetHeight(bonusyJ[i]->bonusGetPos().y - bohater->direction());
+			bonusy[i]->bonusSetHeight(bonusy[i]->bonusGetPos().y - bohater->direction());
 			
 		}
-		for (size_t i = 0; i < bonusyP.size(); i++)
+		/*for (size_t i = 0; i < bonusyP.size(); i++)
 		{
 			bonusyP[i]->bonusSetHeight(bonusyP[i]->bonusGetPos().y - bohater->direction());
-		}
+		}*/
 	}
 }
 
@@ -215,30 +215,30 @@ void SilnikGry::onCollision()
 
 void SilnikGry::bonusCollision()
 {	
-	for (size_t i = 0; i < bonusyJ.size(); i++)
+	for (size_t i = 0; i < bonusy.size(); i++)
 	{
-		if (this->bonusyJ[i]->bonusCollision(this->bohater->getPosition()))
+		if (this->bonusy[0]->bonusCollision(this->bohater->getPosition()))
 		{
 			if (bohater->direction() > 0)
 			{
-				if (bohater->playerGetBounds().intersects(bonusyJ[i]->shapeGetBounds()))
+				if (bohater->playerGetBounds().intersects(bonusy[0]->shapeGetBounds()))
 				{
-					this->bonusyJ[i]->shapeSetPos(-100, 0);
+					this->bonusy[0]->shapeSetPos(-100, 0);
 					this->bohater->doubleJump();
 					this->points += 5;
 				}
 			}
 		}
 	}
-	for (size_t i = 0; i < bonusyP.size(); i++)
+	for (size_t i = 0; i < bonusy.size(); i++)
 	{
-		if (this->bonusyP[i]->bonusCollision(this->bohater->getPosition()))
+		if (this->bonusy[1]->bonusCollision(this->bohater->getPosition()))
 		{
 			if (bohater->direction() > 0)
 			{
-				if (bohater->playerGetBounds().intersects(bonusyP[i]->shapeGetBounds()))
+				if (bohater->playerGetBounds().intersects(bonusy[1]->shapeGetBounds()))
 				{
-					this->bonusyP[i]->shapeSetPos(-100, 0);
+					this->bonusy[1]->shapeSetPos(-100, 0);
 					this->points += 10;
 				}
 			}
@@ -295,14 +295,14 @@ void SilnikGry::update()
 			this->platformy[i]->update();
 		}
 		
-		for (size_t i = 0; i < bonusyJ.size(); i++)
+		for (size_t i = 0; i < bonusy.size(); i++)
+		{
+			this->bonusy[i]->update();
+		}
+		/*for (size_t i = 0; i < bonusyP.size(); i++)
 		{
 			this->bonusyJ[i]->update();
-		}
-		for (size_t i = 0; i < bonusyP.size(); i++)
-		{
-			this->bonusyJ[i]->update();
-		}
+		}*/
 		this->onCollision();
 		this->updateGui();
 		this->updatePlayer();
@@ -330,14 +330,14 @@ void SilnikGry::render()
 		this->platformy[i]->render(*this->window);
 	}
 	
-	for (size_t i = 0; i < bonusyJ.size(); i++)
+	for (size_t i = 0; i < bonusy.size(); i++)
 	{
-		this->bonusyJ[i]->render(this->window);
+		this->bonusy[i]->render(this->window);
 	}
-	for (size_t i = 0; i < bonusyP.size(); i++)
+	/*for (size_t i = 0; i < bonusyP.size(); i++)
 	{
 		this->bonusyP[i]->render(this->window);
-	}
+	}*/
 	
 	this->bohater->render(*this->window);
 
