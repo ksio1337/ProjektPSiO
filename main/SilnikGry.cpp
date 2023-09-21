@@ -193,8 +193,6 @@ void SilnikGry::onCollision()
 				if (this->platformy[i]->hasCollided() == false)
 				{
 					this->points++;
-					//bonusPoints->setBonusPoints(5);
-					//this->points+= bonusPoints->getBonusPoints();
 					if (this->points == 2)
 					{
 						bohater->setInAir();
@@ -299,10 +297,7 @@ void SilnikGry::update()
 		{
 			this->bonusy[i]->update();
 		}
-		/*for (size_t i = 0; i < bonusyP.size(); i++)
-		{
-			this->bonusyJ[i]->update();
-		}*/
+		
 		this->onCollision();
 		this->updateGui();
 		this->updatePlayer();
@@ -334,10 +329,7 @@ void SilnikGry::render()
 	{
 		this->bonusy[i]->render(this->window);
 	}
-	/*for (size_t i = 0; i < bonusyP.size(); i++)
-	{
-		this->bonusyP[i]->render(this->window);
-	}*/
+	
 	
 	this->bohater->render(*this->window);
 

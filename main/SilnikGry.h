@@ -38,8 +38,6 @@ private:
 
 	//Obiekty klas
 	std::vector<Platformy*> platformy;
-	//std::vector<BonusJump*> bonusyJ;
-	//std::vector < BonusPoints*> bonusyP;
 	std::vector <Bonusy*> bonusy;
 	Bohater* bohater;
 	T³o t³o;
